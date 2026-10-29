@@ -32,7 +32,7 @@ export const SectionHead = ({ no, title, sub }: { no: string; title: React.React
 export const Header = () => (
   <header className="site-header">
     <div className="wrap header-inner">
-      <Link href="/" className="logo"><b>{BRAND}</b><small>FRANCHISE</small></Link>
+      <Link href="/" className="logo"><span className="logo-mark">D</span><b>{BRAND}</b><small>FRANCHISE</small></Link>
       <nav className="nav">
         <Link href="/#steps">오픈 과정</Link>
         <Link href="/#regions">지역별 창업</Link>
