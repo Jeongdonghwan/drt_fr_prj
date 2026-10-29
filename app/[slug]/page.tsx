@@ -6,7 +6,7 @@ import { composeFr } from '../../lib/compose-fr';
 import { BRAND, FR_MOTTO } from '../../lib/site';
 import { breadcrumbJsonLd, faqJsonLd, pageListJsonLd, ogMeta } from '../../lib/jsonld';
 import { IconArrow, JsonLd } from '../../components/Common';
-import { FrHero, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, CtaBox, HQ } from '../../components/Fr';
+import { FrHero, PlaceGallery, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, CtaBox, HQ } from '../../components/Fr';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -144,6 +144,8 @@ export default function FrPage({ params }: { params: { slug: string } }) {
           <StepTrack desc={c.steps.map((x) => x.d)} />
         </div>
       </section>
+
+      <PlaceGallery title={`${c.short}에서 오셔도 본사 매장에서 상담합니다`} sub="부산 사상구 가야대로 336 · 전화로 미팅 날짜를 먼저 잡습니다." pick={hash(p.slug) % 2 ? [0, 1, 3] : [0, 2, 4]} />
 
       <CtaBox eyebrow={`${c.short}에서도 본사 방문 상담`} title={c.closing} sub="전화로 미팅을 잡고 부산 사상구 본사 매장을 직접 본 뒤 상담합니다." />
 

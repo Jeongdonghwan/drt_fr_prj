@@ -501,6 +501,16 @@ body { color: var(--s-900); }
 .g-ic.t4 { background: #c9952f; }
 .g-ic.t5 { background: #5168a0; }
 
+/* 본사 매장 사진 */
+.g-gallery { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 230px 230px; gap: 14px; }
+.g-gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: var(--r-md); box-shadow: var(--sh-sm); }
+.g-gallery figure:first-child { grid-row: span 2; }
+.g-gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--spring); }
+.g-gallery figure:hover img { transform: scale(1.04); }
+.g-gallery figcaption { position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.94); color: var(--s-900); font-size: .8rem; font-weight: 700; padding: 6px 12px; border-radius: 8px; }
+.g-gallery.n3 { grid-template-columns: 1.4fr 1fr; }
+@media (max-width: 760px) { .g-gallery, .g-gallery.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 160px; } .g-gallery figure:first-child { grid-column: span 2; grid-row: auto; } }
+
 /* 핵심 경쟁력 카드 — 흰 카드에 아이콘 타일 */
 .g-core { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .g-core li { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: #fff; border: 1px solid var(--s-100); border-radius: var(--r-md); padding: 28px 28px 30px; box-shadow: var(--sh-sm); transition: transform .35s var(--spring), box-shadow .35s; }

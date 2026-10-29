@@ -4,7 +4,7 @@ import { FR_PAGES, frPath, frEncPath } from '../lib/data';
 import { BRAND, CONTACT, FR_CORE, FR_WHY, FR_MOTTO } from '../lib/site';
 import { faqJsonLd, pageListJsonLd, ogMeta } from '../lib/jsonld';
 import { JsonLd } from '../components/Common';
-import { Badge, FrHero, PhotoStrip, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, Branches, CtaBox, OWNER } from '../components/Fr';
+import { Badge, FrHero, PlaceGallery, PhotoStrip, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, Branches, CtaBox, OWNER } from '../components/Fr';
 
 const TITLE = `${BRAND} 가맹 창업 | 강아지·고양이 분양샵 창업 상담`;
 const DESC = `${BRAND} 가맹 창업 안내. 실전 운영 노하우, 본사 교육·마케팅 지원, 동일 상권 중복 가맹 제한, 상담부터 오픈까지 11단계. 본사 방문 상담 ${CONTACT.phone}.`;
@@ -39,7 +39,7 @@ export default function Franchise() {
       <FrHero
         badge="DOROTHY PET FRANCHISE"
         title={<>분양샵 창업,<br /><em>{BRAND}</em>과 함께 시작하세요</>}
-        lead={`부산본점의 분양·미용·호텔 운영 방식을 그대로 가져갑니다. 공급망·교육·마케팅은 본사가 맡습니다.`}
+        lead={`부산본점의 분양·상담·사후관리 방식을 그대로 가져갑니다. 공급망·교육·마케팅은 본사가 맡습니다.`}
         cards
       />
 
@@ -52,6 +52,8 @@ export default function Franchise() {
           />
         </div>
       </section>
+
+      <PlaceGallery title="부산본점을 직접 보고 결정하세요" sub="가맹 상담은 이 매장에서 진행합니다. 분양 공간·상담 공간 구성을 그대로 참고합니다." />
 
       <section className="g-sec soft">
         <div className="wrap">

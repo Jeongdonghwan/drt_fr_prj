@@ -33,6 +33,19 @@ export const WHY_ICON: Record<string, string> = { '전방위 창업 지원': 'su
 export const WHY_EN: Record<string, string> = { '전방위 창업 지원': 'Full Support', '검증된 건강 분양 시스템': 'Health Check', '통합 마케팅 대행': 'Marketing', '상권 보호': 'Area Protection', '부담을 줄인 창업 비용': 'Lower Cost', '표준화된 매뉴얼': 'Manual' };
 export const CORE_ICON: Record<string, string> = { '실전 기반 운영 노하우': 'chart', '지속적인 본사 지원·교육': 'school', '인테리어 가이드': 'store', '점주와 상생': 'hands' };
 
+// 부산본점 매장 사진 (네이버 플레이스 업체 사진, 2026-10-29 사용자 요청)
+export const PLACE: [string, string][] = [['place-front', '매장 외관'], ['place-hall-1', '분양 공간'], ['place-hall-2', '상담 공간'], ['place-hall-3', '매장 내부'], ['place-hall-4', '매장 전경'], ['place-goods', '용품 공간']];
+export const PlaceGallery = ({ title, sub, pick = [0, 1, 2, 3, 5] }: { title: string; sub: string; pick?: number[] }) => (
+  <section className="g-sec">
+    <div className="wrap">
+      <div className="g-head center"><p className="g-badge">HEAD OFFICE</p><h2>{title}</h2><p>{sub}</p></div>
+      <div className={`g-gallery n${pick.length} reveal-group`}>
+        {pick.map((i) => <figure key={PLACE[i][0]}><img src={`/images/${PLACE[i][0]}.webp`} alt={`${BRAND} 부산본점 ${PLACE[i][1]}`} loading="lazy" /><figcaption>{PLACE[i][1]}</figcaption></figure>)}
+      </div>
+    </div>
+  </section>
+);
+
 export const Badge = ({ children }: { children: React.ReactNode }) => <p className="g-badge">{children}</p>;
 
 export function FrHero({ badge, title, lead, crumbs, stats, cards }: {
@@ -58,10 +71,10 @@ export function FrHero({ badge, title, lead, crumbs, stats, cards }: {
       </div>
       {cards && (
         <div className="g-cards" aria-hidden="false">
-          {[PUPPIES[0], PUPPIES[1], PUPPIES[2]].map(([src, name], i) => (
+          {[PLACE[1], PLACE[0], PLACE[2]].map(([src, name], i) => (
             <figure key={src} className={`g-card c${i}`}>
-              <img src={`/images/b/${src}.webp`} alt={`${BRAND} 분양 ${name}`} fetchPriority={i === 1 ? 'high' : undefined} />
-              <figcaption><small>본사 분양</small>{name}</figcaption>
+              <img src={`/images/${src}.webp`} alt={`${BRAND} 부산본점 ${name}`} fetchPriority={i === 1 ? 'high' : undefined} />
+              <figcaption><small>부산본점</small>{name}</figcaption>
             </figure>
           ))}
         </div>

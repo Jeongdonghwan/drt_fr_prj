@@ -1,5 +1,5 @@
 """페이지별 og:image(1200×630) — seo-foundation make_og.py 레이아웃 그대로, 배경 사진만 페이지 주제에 맞춘다.
-  견종 페이지 = 그 견종 분양 사진, 고양이 일반 = 고양이 사진, 강아지 일반 = 강아지 사진, 창업 = 매장 사진(미용실·호텔·드라이룸)
+  견종 페이지 = 그 견종 분양 사진, 고양이 일반 = 고양이 사진, 강아지 일반 = 강아지 사진, 창업 = 부산본점 매장 사진(네이버 플레이스)
 
   python -I scripts/make_og.py [--force]
 글자는 네이버 정사각형 크롭을 고려해 가운데 630×630 안에 둔다.
@@ -42,9 +42,9 @@ def main():
     sys.stdout.reconfigure(encoding='utf-8')
     force = '--force' in sys.argv
     os.makedirs(OUT, exist_ok=True)
-    store_rooms = [os.path.join(IMG, f) for f in ('store-groom.webp', 'store-hotel.webp', 'store-dryer.webp', 'hero-puppy.webp', 'hero-dog.webp')]
+    store_rooms = [os.path.join(IMG, f) for f in ('place-hall-1.webp', 'place-hall-2.webp', 'place-hall-3.webp', 'place-front.webp')]  # 부산본점 매장 사진
     pages = json.load(open(os.path.join(ROOT, 'data', 'pages.json'), encoding='utf-8'))
-    items = [('home', '도로시펫 가맹 창업', '상담부터 오픈까지 11단계', [os.path.join(IMG, 'store-groom.webp')])]
+    items = [('home', '도로시펫 가맹 창업', '상담부터 오픈까지 11단계', [os.path.join(IMG, 'place-front.webp')])]
     for p in pages['franchise']:
         items.append((p['slug'], p['kw'], '도로시펫 가맹 창업 상담', store_rooms))
     n = 0
