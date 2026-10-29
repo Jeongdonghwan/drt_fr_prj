@@ -6,6 +6,7 @@
 import { FrPage, FrWord, hash } from './data';
 import { BRAND, CONTACT, BRANCHES, FR_CORE, FR_WHY, FR_STEPS, FR_MOTTO } from './site';
 import { j } from './ko';
+import { articleFr } from './article-fr';
 
 const pick = <T,>(arr: T[], s: string, salt: string) => arr[hash(`${s}::${salt}`) % arr.length];
 // 해시 뒤섞기 — 연속 묶음을 자르는 회전은 이웃 페이지끼리 대부분 겹쳐서 쓰지 않는다
@@ -158,12 +159,12 @@ export function composeFr(p: FrPage) {
     `창업의 결과는 업종만으로 정해지지 않습니다. 어떤 시스템과 운영 구조를 고르느냐에 따라 안정성이 달라집니다.`,
   ];
   const by = (id: string) => TOPICS.find((x) => x.id === id)!;
-  const EXTRA: Record<FrWord, { h: string[]; ids?: string[]; body?: string[] }> = {
+  const EXTRA: Record<FrWord, { h: string[]; ids?: string[]; items?: { t: string; d: string }[]; body?: string[] }> = {
     창업: { h: ['창업 시장은 지금 어떻게 변하고 있을까요', `${short}에서 업종을 고를 때`, '오래 갈 업종인지부터'], body: rotate(MARKET, s, 'mk').slice(0, 3) },
     core: { h: ['창업 시장은 지금 어떻게 변하고 있을까요', '오래 갈 업종인지부터'], body: rotate(MARKET, s, 'mk').slice(0, 3) },
-    소자본창업: { h: ['본사가 맡는 것, 점주가 준비하는 것', `${short} 소자본 창업, 부담을 나누는 방법`], body: [
-      `본사가 맡는 것: 분양 아이 공급망, 건강·혈통 정보 관리, 블로그·인스타그램·유튜브 마케팅, 인테리어 가이드, 상담·계약·사후관리 매뉴얼, 오픈 전 교육과 오픈 후 정기 점검.`,
-      `점주가 준비하는 것: ${short} 안 점포, 동물판매업 허가에 맞는 시설, 매장을 지킬 시간과 고객 응대. 인허가는 가맹 과정의 점검 단계에서 함께 확인합니다.`,
+    소자본창업: { h: ['본사가 맡는 것, 점주가 준비하는 것', `${short} 소자본 창업, 부담을 나누는 방법`], items: [
+      { t: '본사가 맡는 것', d: `분양 아이 공급망, 건강·혈통 정보 관리, 블로그·인스타그램·유튜브 마케팅, 인테리어 가이드, 상담·계약·사후관리 매뉴얼, 오픈 전 교육과 오픈 후 정기 점검을 본사가 맡습니다.` },
+      { t: '점주가 준비하는 것', d: `${short} 안 점포, 동물판매업 허가에 맞는 시설, 매장을 지킬 시간과 고객 응대입니다. 인허가는 가맹 과정의 점검 단계에서 함께 확인합니다.` },
     ] },
     강아지분양창업: { h: [`${short} 가맹점이 받는 분양 시스템`, '공급망과 건강 관리는 본사 방식 그대로'], ids: ['supply', 'health'] },
     애견분양창업: { h: [`${short} 애견 분양, 본사가 함께하는 것`, '신뢰는 출신과 건강 정보에서'], ids: ['health', 'manual'] },
@@ -172,7 +173,7 @@ export function composeFr(p: FrPage) {
     애견분양샵창업: { h: [`${short} 분양샵, 처음이어도 되는 이유`, '노하우와 상생'], ids: ['knowhow', 'winwin'] },
   };
   const ex = EXTRA[p.word];
-  const extra = { heading: pick(ex.h, s, 'xh'), body: ex.body || ex.ids!.map((id) => `${by(id).t}: ${say(by(id), 'x')}`) };
+  const extra = { heading: pick(ex.h, s, 'xh'), body: ex.body || [], items: ex.items || (ex.ids || []).map((id) => ({ t: by(id).t, d: say(by(id), 'x') })) };
   // 한 페이지 안에서 같은 주제가 두 번 나오지 않게: 유형 블록 → 핵심 경쟁력·왜 도로시펫 → 장점 카드·요약 순으로 빼 나간다
   const TOPIC_OF: Record<string, string> = {
     '실전 기반 운영 노하우': 'knowhow', '지속적인 본사 지원·교육': 'support', '인테리어 가이드': 'interior', '점주와 상생': 'winwin',
@@ -208,6 +209,7 @@ export function composeFr(p: FrPage) {
     wordHeading: pick([`${L}, ${w.focus}부터`, `${L}에서 중요한 것`, `${BRAND}이 ${w.focus}을 돕는 방법`], s, 'wh'),
     meritHeading: pick([`${short} ${L}, ${BRAND}이라 다른 점`, `${short} 가맹점이 받는 지원`, `${BRAND} 가맹의 장점`], s, 'mh'),
     extra,
+    article: articleFr({ s, word: p.word, short, L, branch: branch || undefined, breakdown: p.breakdown }),
     core: core.map((x, i) => ({ t: x.t, d: i === 0 ? `${short} 가맹점에도 같은 기준입니다. ${x.d}` : x.d })),
     why,
     steps: (() => {

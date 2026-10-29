@@ -9,6 +9,7 @@ cd "$(dirname "$0")/.."
 python -I scripts/make_og.py   # og 이미지(public/og, git 제외) 없는 것만 생성
 rm -rf ./out
 SITE_URL=$URL npx next build
+rm -rf ./out/blog/_   # 글이 없을 때 생기는 빈 자리(app/blog/[slug] 참고)
 grep -q "$URL" out/sitemap.xml || { echo "sitemap에 주소가 없음"; exit 1; }
 REMOTE=$(git remote get-url origin)
 cd out

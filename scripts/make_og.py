@@ -45,6 +45,11 @@ def main():
     store_rooms = [os.path.join(IMG, 'place-front.webp')]  # 부산본점 외관(간판이 보이는 사진, 사용자 선택 2026-10-29)
     pages = json.load(open(os.path.join(ROOT, 'data', 'pages.json'), encoding='utf-8'))
     items = [('home', '도로시펫 가맹 창업', '상담부터 오픈까지 11단계', [os.path.join(IMG, 'place-front.webp')])]
+    import glob, re as _re
+    for f in glob.glob(os.path.join(ROOT, 'content', 'blog', '[!_]*.md')):  # 창업 가이드 글 (공개일 상관없이 미리 만든다)
+        head = open(f, encoding='utf-8').read().split('---')[1]
+        meta = dict((l.split(':', 1)[0].strip(), l.split(':', 1)[1].strip().strip('"')) for l in head.strip().splitlines() if ':' in l)
+        items.append((f"blog-{meta['slug']}", meta.get('keyword') or meta['title'], '도로시펫 창업 가이드', store_rooms))
     for p in pages['franchise']:
         items.append((p['slug'], p['kw'], '도로시펫 가맹 창업 상담', store_rooms))
     n = 0

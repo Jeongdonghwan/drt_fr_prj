@@ -51,6 +51,20 @@ export default function FrPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+      <section className="g-sec">
+        <div className="wrap">
+          <article className="g-article">
+            <h2>{c.article.heading}</h2>
+            {c.article.sections.map((x, i) => (
+              <section key={x.h} data-reveal>
+                <h3><span>{String(i + 1).padStart(2, '0')}</span>{x.h}</h3>
+                {x.p.map((t) => <p key={t}>{t}</p>)}
+              </section>
+            ))}
+          </article>
+        </div>
+      </section>
+
       <section className="g-sec soft">
         <div className="wrap">
           <div className="g-head"><h2>{c.meritHeading}</h2><p>공식 가맹 안내 내용을 {c.short} 기준으로 정리했습니다.</p></div>
@@ -70,7 +84,8 @@ export default function FrPage({ params }: { params: { slug: string } }) {
         <div className="wrap">
           <div className="g-head"><h2>{c.extra.heading}</h2></div>
           <div className="g-box">
-            <div className="prose" data-reveal>{c.extra.body.map((t, i) => <p key={i}>{t}</p>)}</div>
+            {c.extra.body.length > 0 && <div className="prose" data-reveal>{c.extra.body.map((t, i) => <p key={i}>{t}</p>)}</div>}
+            {c.extra.items.length > 0 && <div className="g-split reveal-group">{c.extra.items.map((x, i) => <div key={x.t}><span>{String(i + 1).padStart(2, '0')}</span><h3>{x.t}</h3><p>{x.d}</p></div>)}</div>}
           </div>
         </div>
       </section>
