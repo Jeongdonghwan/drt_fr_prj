@@ -115,7 +115,7 @@ export const FeaturePanel = ({ title, body, side }: { title: React.ReactNode; bo
             <p className="g-sheet-h"><b>본사가 맡는 것</b><span>{HQ.length}</span></p>
             <ul>{HQ.map((x) => <li key={x}><i><Icon name="check" /></i>{x}</li>)}</ul>
           </div>
-          <div className="g-float"><span className="g-mark">D</span><b>{BRAND} 본사 지원</b></div>
+          <div className="g-float"><b>{BRAND} 본사 지원</b></div>
         </>
       )}
     </div>

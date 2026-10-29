@@ -402,7 +402,6 @@ body { color: var(--s-900); }
 .site-header { background: rgba(255,255,255,.88); backdrop-filter: blur(18px) saturate(1.1); -webkit-backdrop-filter: blur(18px) saturate(1.1); border-bottom-color: transparent; }
 .scrolled .site-header { border-bottom-color: var(--s-200); box-shadow: none; }
 .logo { align-items: center; }
-.logo-mark { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 1rem; background: var(--c-600); }
 .logo b { font-size: 1.2rem; font-weight: 800; letter-spacing: -.04em; }
 .logo small { color: var(--s-400); letter-spacing: .2em; }
 .nav a { color: var(--s-700); font-weight: 500; }
@@ -467,7 +466,6 @@ body { color: var(--s-900); }
 .g-sheet li i { width: 22px; height: 22px; flex: none; border-radius: 7px; background: var(--c-600); color: #fff; display: grid; place-items: center; }
 .g-sheet li svg { width: 14px; height: 14px; }
 .g-float { position: absolute; left: -14px; bottom: 18px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-radius: var(--r-sm); padding: 12px 18px; box-shadow: var(--sh-lg); font-size: .95rem; }
-.g-mark { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: .85rem; background: var(--c-600); }
 .g-panel-text h3 { margin: 16px 0 14px; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.25; }
 .g-panel-text p, .g-panel-text .prose p { color: var(--s-500); }
 .g-owner { list-style: none; margin: 14px 0; padding: 0; display: grid; gap: 8px; counter-reset: o; }
