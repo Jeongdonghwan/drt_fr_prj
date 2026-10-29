@@ -450,21 +450,21 @@ body { padding-bottom: 66px; }
 .js .roles:not(.in) .roles-mid span { transform: scaleX(0); }
 @media (max-width: 860px) { .roles { grid-template-columns: 1fr; } .roles-mid { height: 40px; } .roles-mid span { left: 50%; top: 0; bottom: 0; width: 2px; height: auto; } .roles-mid span::after { display: none; } .roles-hq, .roles-own { padding: 24px 20px; } }
 
-/* 핵심 경쟁력 사진 타일 — 1 크게 + 1 가로 + 2 작게 */
-.core-tiles { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 250px 250px; gap: 8px; }
-.ct { position: relative; overflow: hidden; margin: 0; background: var(--ink); }
-.ct0 { grid-column: span 2; grid-row: span 2; } .ct1 { grid-column: span 2; }
-.ct img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.ct:hover img { transform: scale(1.05); }
-.ct > div { position: absolute; left: 0; bottom: 0; max-width: 92%; background: rgba(31, 38, 49, .86); color: #fff; padding: 16px 20px 18px; }
-.ct span { font-size: .78rem; font-weight: 800; color: var(--mint); }
-.ct h3 { margin: 2px 0 4px; font-size: 1.12rem; }
-.ct p { margin: 0; font-size: .88rem; line-height: 1.6; color: rgba(255,255,255,.8); }
-.ct0 h3 { font-size: 1.5rem; }
-.core-tiles.two { grid-template-columns: 1fr 1fr; grid-template-rows: 320px; }
-.core-tiles.two .ct0, .core-tiles.two .ct1 { grid-column: auto; grid-row: auto; }
-.core-tiles.two .ct0 h3 { font-size: 1.12rem; }
-@media (max-width: 760px) { .core-tiles, .core-tiles.two { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: 260px; } .ct0, .ct1 { grid-column: auto; grid-row: auto; } }
+/* 핵심 경쟁력 — 사진은 깨끗하게, 글은 사진 아래 흰 바탕 (첫 칸만 넓게) */
+.core-tiles { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 0 22px; align-items: start; }
+.ct { margin: 0; }
+.ct img { width: 100%; height: 240px; object-fit: cover; background: var(--gray); transition: opacity .4s; }
+.ct:hover img { opacity: .9; }
+.ct > div { padding: 16px 0 0; border-top: 2px solid var(--ink); margin-top: 14px; }
+.ct0 > div { border-top-color: var(--mint); }
+.ct span { font-size: .78rem; font-weight: 800; color: var(--green-2); }
+.ct h3 { margin: 2px 0 6px; font-size: 1.1rem; }
+.ct p { margin: 0; font-size: .92rem; line-height: 1.65; color: var(--muted); }
+.ct0 h3 { font-size: 1.3rem; }
+.core-tiles.two { grid-template-columns: 1.3fr 1fr; gap: 0 30px; }
+.core-tiles.two .ct img { height: 280px; }
+@media (max-width: 960px) { .core-tiles { grid-template-columns: 1fr 1fr; gap: 30px 22px; } }
+@media (max-width: 560px) { .core-tiles, .core-tiles.two { grid-template-columns: 1fr; } .ct img, .core-tiles.two .ct img { height: 210px; } }
 .motto-q { margin: 34px 0 0; padding: 6px 0 6px 24px; border-left: 4px solid var(--mint); }
 .motto-q p { margin: 0; font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.4; }
 .motto-q cite { font-style: normal; font-size: .82rem; color: var(--muted); }
