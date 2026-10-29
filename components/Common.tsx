@@ -14,8 +14,8 @@ export const IconMsg = () => <Svg d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2
 export const IconArrow = () => <Svg d="M5 12h14M13 6l6 6-6 6" size={16} />;
 export const IconPin = () => <Svg d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12zM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />;
 
-export const Actions = ({ franchise }: { franchise?: boolean }) => (
-  <div className="actions">
+export const Actions = ({ franchise, dark }: { franchise?: boolean; dark?: boolean }) => (
+  <div className={dark ? 'actions on-dark' : 'actions'}>
     <a className="btn-primary" href={tel}><IconPhone /><span>{franchise ? '가맹 상담 ' : ''}{CONTACT.phone}</span></a>
     <a className="btn-text" href={LINKS.kakao} target="_blank" rel="noopener"><IconMsg /><span>카카오톡 상담</span><IconArrow /></a>
   </div>
