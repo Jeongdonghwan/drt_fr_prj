@@ -154,11 +154,11 @@ export const IconCards = ({ items, cols = 6 }: { items: { t: string; d: string }
 );
 
 // 핵심 경쟁력 — 아이콘 타일 + 번호 + 제목 + 설명 (빈 색 블록 없이)
-export const GradCards = ({ items, label }: { items: { t: string; d: string }[]; label: string }) => (
+export const GradCards = ({ items, label }: { items: { t: string; d: string; icon?: string }[]; label: string }) => (
   <ol className={`g-core n${items.length} reveal-group`}>
     {items.map((x, i) => (
       <li key={x.t}>
-        <span className={`g-ic t${(i * 2) % 6}`}><Icon name={CORE_ICON[x.t] || 'check'} /></span>
+        <span className={`g-ic t${(i * 2) % 6}`}><Icon name={CORE_ICON[x.t] || CORE_ICON[x.icon || ''] || WHY_ICON[x.icon || ''] || 'check'} /></span>
         <div>
           <p className="g-core-k">{label} {String(i + 1).padStart(2, '0')}</p>
           <h3>{x.t}</h3>

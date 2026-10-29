@@ -26,22 +26,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
   const c = composeFr(p);
   const rel = relatedFr(p);
   const path = frEncPath(p);
-  const r = p.region;
 
-  // 지역 카드 일러스트 — 그 지역 실제 데이터(행정안전부·농림축산검역본부)
-  const regionCard = r ? (
-    <div className="g-sheet">
-      <p className="g-sheet-h"><b>{c.short} 상권 카드</b><span>공공데이터</span></p>
-      <dl className="g-rc">
-        <div><dt>주민등록 세대</dt><dd>{r.households.toLocaleString()}</dd></div>
-        <div><dt>1인 세대</dt><dd>{r.onePct}%</dd></div>
-        <div><dt>반려견 등록</dt><dd>{r.dogs.toLocaleString()}</dd></div>
-        <div><dt>세대 100곳당 반려견</dt><dd>{r.per100}마리</dd></div>
-      </dl>
-      <p className="g-rc-bar"><span style={{ width: `${Math.min(100, (r.per100 / 20) * 100)}%` }} /></p>
-      <p className="g-rc-note">주민등록 2026.9 · 반려동물 등록 2022 누계</p>
-    </div>
-  ) : undefined;
 
   return (
     <main className="g">
@@ -54,14 +39,9 @@ export default function FrPage({ params }: { params: { slug: string } }) {
       <FrHero
         crumbs={<nav className="crumbs g-crumbs" aria-label="경로"><Link href="/">홈</Link><span>/</span><Link href="/#regions">지역별 창업</Link><span>/</span>{p.kw}</nav>}
         badge={c.eyebrow}
-        title={r && p.kw.startsWith(c.short) ? <><em>{c.short}</em>{p.kw.slice(c.short.length)}</> : p.kw}
+        title={p.region && p.kw.startsWith(c.short) ? <><em>{c.short}</em>{p.kw.slice(c.short.length)}</> : p.kw}
         lead={c.lead}
-        stats={r ? [
-          { k: '주민등록 세대', v: r.households, unit: '세대', note: '행정안전부 2026.9' },
-          { k: '반려견 등록', v: r.dogs, unit: '마리', note: '농림축산검역본부 2022 누계' },
-          { k: '세대 100곳당 반려견', v: r.per100, unit: '마리', note: '세대 2026.9 · 등록 2022' },
-        ] : undefined}
-        cards={!r}
+        cards
       />
 
       <section className="g-sec">
@@ -73,36 +53,24 @@ export default function FrPage({ params }: { params: { slug: string } }) {
 
       <section className="g-sec soft">
         <div className="wrap">
-          <div className="g-head"><h2>{c.factsHeading}</h2>{r && <p>주민등록 세대: 행정안전부 2026.9 · 반려동물 등록: 농림축산검역본부 2022 누계</p>}</div>
-          <div className="g-box">
-            <div className="cols">
-              <div className="prose" data-reveal>{c.facts.map((t, i) => <p key={i}>{t}</p>)}</div>
-              {c.dl.length > 0 && <dl className="info" data-reveal>{c.dl.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
-            </div>
-          </div>
+          <div className="g-head"><h2>{c.meritHeading}</h2><p>공식 가맹 안내 내용을 {c.short} 기준으로 정리했습니다.</p></div>
+          <GradCards items={c.merits} label={`${c.short} 가맹점 지원`} />
         </div>
       </section>
 
       <section className="g-sec">
         <div className="wrap">
-          <FeaturePanel title={c.wordHeading} body={<div className="prose">{c.wordBody.map((t, i) => <p key={i}>{t}</p>)}</div>} side={regionCard} />
+          <FeaturePanel title={c.wordHeading} body={<div className="prose">{c.wordBody.map((t, i) => <p key={i}>{t}</p>)}</div>} />
         </div>
       </section>
 
-      <Reviews title={`${c.short} 가맹점도 같은 기준으로 분양합니다`} offset={hash(p.slug) % 41} count={8} />
+      <Reviews title="부산본점 고객이 남긴 후기" offset={hash(p.slug) % 41} count={8} />
 
       <section className="g-sec">
         <div className="wrap">
           <div className="g-head"><h2>{c.extra.heading}</h2></div>
           <div className="g-box">
             <div className="prose" data-reveal>{c.extra.body.map((t, i) => <p key={i}>{t}</p>)}</div>
-            {c.extra.steps && <ol className="timeline reveal-group" style={{ marginTop: 22 }}>{c.extra.steps.map((st) => <li key={st.t}><strong>{st.t}</strong><p>{st.d}</p></li>)}</ol>}
-            {c.extra.table && (
-              <div className="price-wrap" data-reveal><table className="price-table">
-                <thead><tr>{c.extra.table.head.map((x) => <th key={x} scope="col">{x}</th>)}</tr></thead>
-                <tbody>{c.extra.table.rows.map((row) => <tr key={row[0]}>{row.map((x, i) => i === 0 ? <th key={i} scope="row">{x}</th> : <td key={i}>{x}</td>)}</tr>)}</tbody>
-              </table></div>
-            )}
           </div>
         </div>
       </section>

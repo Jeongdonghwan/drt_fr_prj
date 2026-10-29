@@ -106,7 +106,7 @@ export default function Franchise() {
 
       <section className="g-sec soft" id="regions">
         <div className="wrap">
-          <div className="g-head"><h2>지역별 창업 안내</h2><p>{groups.size}개 권역 {FR_PAGES.length.toLocaleString()}개 페이지. 지역마다 주민등록 세대와 반려동물 등록 데이터를 함께 정리했습니다.</p></div>
+          <div className="g-head"><h2>지역별 창업 안내</h2><p>{groups.size}개 권역 {FR_PAGES.length.toLocaleString()}개 페이지. 지역별로 가맹 지원 내용과 상담 방법을 정리했습니다.</p></div>
           <div className="dir g-dir">
             {Array.from(groups.entries()).map(([k, list], i) => (
               <details key={k} open={i < 2}>
