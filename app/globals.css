@@ -501,24 +501,14 @@ body { color: var(--s-900); }
 .g-ic.t4 { background: #c9952f; }
 .g-ic.t5 { background: #5168a0; }
 
-/* 그라데이션 카드 (gopung 작업 카드) */
-.g-works { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.g-works.n2 { grid-template-columns: 1fr 1fr; }
-.g-work { margin: 0; }
-.g-thumb { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; box-shadow: var(--sh-sm); transition: transform .4s var(--spring), box-shadow .4s; }
-.g-works.n2 .g-thumb { aspect-ratio: 16 / 8; }
-.g-work:hover .g-thumb { transform: translateY(-4px); box-shadow: var(--sh-lg); }
-.g-thumb.w0 { background: #8d5f3a; }
-.g-thumb.w1 { background: #2f3f55; }
-.g-thumb.w2 { background: #b4532d; }
-.g-thumb.w3 { background: #3e6b55; }
-.g-tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.92); color: var(--s-900); font-size: .74rem; font-weight: 800; padding: 6px 10px; border-radius: 8px; position: relative; z-index: 1; }
-.g-tag svg { width: 14px; height: 14px; color: var(--c-600); }
-.g-thumb h3 { margin: 0; font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.3; position: relative; z-index: 1; }
-.g-work-k { margin: 16px 0 4px; font-size: .78rem; font-weight: 700; color: var(--c-600); }
-.g-work-d { margin: 0; color: var(--s-700); font-size: .95rem; line-height: 1.65; }
-@media (max-width: 960px) { .g-works { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .g-works, .g-works.n2 { grid-template-columns: 1fr; } }
+/* 핵심 경쟁력 카드 — 흰 카드에 아이콘 타일 */
+.g-core { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g-core li { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; background: #fff; border: 1px solid var(--s-100); border-radius: var(--r-md); padding: 28px 28px 30px; box-shadow: var(--sh-sm); transition: transform .35s var(--spring), box-shadow .35s; }
+.g-core li:hover { transform: translateY(-4px); box-shadow: var(--sh-md); }
+.g-core-k { margin: 2px 0 4px; font-size: .74rem; font-weight: 800; color: var(--c-600); letter-spacing: .02em; }
+.g-core h3 { margin: 0 0 8px; font-size: 1.2rem; letter-spacing: -.03em; }
+.g-core li p:last-child { margin: 0; color: var(--s-500); font-size: .95rem; line-height: 1.65; }
+@media (max-width: 760px) { .g-core { grid-template-columns: 1fr; } .g-core li { grid-template-columns: 1fr; gap: 14px; padding: 24px 22px; } }
 
 /* 흐르는 띠 (분양 사진 · 후기) */
 .g-strip, .g-reviews { padding: 90px 0; overflow: hidden; }
