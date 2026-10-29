@@ -27,7 +27,6 @@ export default function FrPage({ params }: { params: { slug: string } }) {
   const rel = relatedFr(p);
   const path = frEncPath(p);
   const r = p.region;
-  const max = Math.max(...c.compare.map(([, x]) => x.per100), 1);
 
   // 지역 카드 일러스트 — 그 지역 실제 데이터(행정안전부·농림축산검역본부)
   const regionCard = r ? (
@@ -40,7 +39,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
         <div><dt>세대 100곳당 반려견</dt><dd>{r.per100}마리</dd></div>
       </dl>
       <p className="g-rc-bar"><span style={{ width: `${Math.min(100, (r.per100 / 20) * 100)}%` }} /></p>
-      <p className="g-rc-note">{r.rankOf}곳 중 세대 대비 {r.rankPer100}위 · 2026.9 / 2022 누계</p>
+      <p className="g-rc-note">주민등록 2026.9 · 반려동물 등록 2022 누계</p>
     </div>
   ) : undefined;
 
@@ -60,7 +59,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
         stats={r ? [
           { k: '주민등록 세대', v: r.households, unit: '세대', note: '행정안전부 2026.9' },
           { k: '반려견 등록', v: r.dogs, unit: '마리', note: '농림축산검역본부 2022 누계' },
-          { k: '세대 100곳당 반려견', v: r.per100, unit: '마리', note: `${r.rankOf}곳 중 ${r.rankPer100}위` },
+          { k: '세대 100곳당 반려견', v: r.per100, unit: '마리', note: '세대 2026.9 · 등록 2022' },
         ] : undefined}
         cards={!r}
       />
@@ -80,22 +79,6 @@ export default function FrPage({ params }: { params: { slug: string } }) {
               <div className="prose" data-reveal>{c.facts.map((t, i) => <p key={i}>{t}</p>)}</div>
               {c.dl.length > 0 && <dl className="info" data-reveal>{c.dl.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
             </div>
-            {c.partTable.length > 1 && (
-              <div className="price-wrap" data-reveal><table className="compare in">
-                <caption className="sr-only">{c.short} {c.partWord}별 세대</caption>
-                <thead><tr><th scope="col">{c.partWord}</th><th scope="col">세대</th><th scope="col">1인 세대</th>{c.partTable.some((x) => x.dogs) && <th scope="col">반려견 등록</th>}</tr></thead>
-                <tbody>{c.partTable.map((x) => <tr key={x.name}><th scope="row">{x.name}</th><td>{x.households.toLocaleString()}</td><td>{x.onePct}%</td>{c.partTable.some((y) => y.dogs) && <td>{x.dogs ? x.dogs.toLocaleString() : '-'}</td>}</tr>)}</tbody>
-              </table></div>
-            )}
-            {c.compare.length > 1 && (
-              <div className="price-wrap" data-reveal><table className="compare">
-                <caption className="sr-only">{c.compareCaption}</caption>
-                <thead><tr><th scope="col">지역</th><th scope="col">세대</th><th scope="col">반려견 등록</th><th scope="col">세대 100곳당</th><th scope="col" style={{ width: '30%' }}></th></tr></thead>
-                <tbody>{c.compare.map(([name, x], i) => (
-                  <tr key={name} className={i === 0 ? 'me' : ''}><th scope="row">{name}</th><td>{x.households.toLocaleString()}</td><td>{x.dogs.toLocaleString()}</td><td>{x.per100}마리</td><td><span className="bar" style={{ width: `${(x.per100 / max) * 100}%` }} /></td></tr>
-                ))}</tbody>
-              </table></div>
-            )}
           </div>
         </div>
       </section>

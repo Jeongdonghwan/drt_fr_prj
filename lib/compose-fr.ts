@@ -1,5 +1,5 @@
 // 창업 키워드 페이지 조합기 (1,000개).
-// 사실 근거: data/regions.json(반려동물 등록 2022 누계·주민등록 세대 2026.9, 순위는 같은 단위 안에서 계산),
+// 사실 근거: data/regions.json(반려동물 등록 2022 누계·주민등록 세대 2026.9). 순위·'적다/낮다' 비교는 넣지 않음(사용자 요청 2026-10-29),
 //           lib/site.ts(가맹 페이지 문구: 핵심 경쟁력·왜 도로시펫·11단계·상담 방법).
 // 하지 않는 것: 창업 비용 숫자·수익률·'타 브랜드 1/3' 같은 비교 수치(사이트도 금액 미표기), 지점 수 부풀리기.
 import { FrPage, FrWord, REGIONS, hash } from './data';
@@ -48,15 +48,14 @@ export function composeFr(p: FrPage) {
       `농림축산검역본부 집계로 ${short}에 등록된 반려견은 ${n(r.dogs)}마리, 반려묘는 ${n(r.cats)}마리입니다(2022년 누계).`,
       `${short}의 동물등록 누계는 개 ${n(r.dogs)}마리, 고양이 ${n(r.cats)}마리입니다(2022년, 농림축산검역본부).`,
     ], s, 'f2'),
-    rank: `세대 100곳당 등록 반려견은 ${r.per100}마리로, 이 안내에서 다루는 ${r.rankOf}개 ${unit} 중 등록 수 ${r.rankDogs}위, 세대 대비 ${r.rankPer100}위입니다.`,
+    rank: `세대 100곳당 등록 반려견은 ${r.per100}마리입니다. ${short} 안 생활권별 세대 구성을 함께 보고 입지를 정합니다.`,
     one: r.onePct >= 45 ? `1인 세대가 ${r.onePct}%로 많아 소형견·고양이 상담 비중을 높게 잡는 편이 맞습니다.`
       : r.onePct <= 35 ? `1인 세대가 ${r.onePct}%로 적고 가족 세대가 많아, 아이와 함께 키울 강아지를 찾는 가족 단위 상담이 많을 상권입니다.`
         : `1인 세대 ${r.onePct}%로 가족 세대와 1인 세대가 섞여 있어, 소형견부터 가족견까지 고르게 준비하는 구성이 맞습니다.`,
     dens: r.per100 >= 14 ? `${j(short, '은')} 세대 대비 반려견 등록이 많은 편(100세대당 ${r.per100}마리)이라 이미 반려견을 키우는 집의 소개·재방문 수요도 함께 볼 수 있습니다.`
-      : r.per100 <= 10 ? `${j(short, '은')} 세대 대비 반려견 등록이 적은 편(100세대당 ${r.per100}마리)이라, 입지는 유동 인구가 모이는 상권 중심으로 보수적으로 고릅니다.`
-        : `${short}의 세대 대비 반려견 등록(100세대당 ${r.per100}마리)은 중간 수준이라, 주변 주거 단지와 유동 인구를 함께 봅니다.`,
-    cmp: sidoAvg ? `${sidoAvg.label} 평균(1인 세대 ${sidoAvg.onePct}%, 세대 100곳당 반려견 ${sidoAvg.per100}마리)과 비교하면 ${j(short, '은')} 1인 세대가 ${r.onePct > sidoAvg.onePct ? '많고' : r.onePct < sidoAvg.onePct ? '적고' : '비슷하고'}, 반려견 등록 밀도는 ${r.per100 > sidoAvg.per100 ? '높습니다' : r.per100 < sidoAvg.per100 ? '낮습니다' : '비슷합니다'}.`
-      : `${short}의 반려견 등록 ${n(r.dogs)}마리는 ${r.rankOf}개 시도 가운데 ${r.rankDogs}번째로 많습니다.`,
+      : `${short}에는 100세대당 ${r.per100}마리의 반려견이 등록돼 있어, 주변 주거 단지와 유동 인구를 함께 보고 입지를 고릅니다.`,
+    cmp: sidoAvg ? `${sidoAvg.label} 평균(1인 세대 ${sidoAvg.onePct}%, 세대 100곳당 반려견 ${sidoAvg.per100}마리)을 함께 보면 ${short}의 상권 성격을 가늠하기 쉽습니다. ${short}은 1인 세대 ${r.onePct}%, 세대 100곳당 반려견 ${r.per100}마리입니다.`
+      : `${short}에 등록된 반려견·반려묘는 모두 ${n(r.dogs + r.cats)}마리입니다(2022년 누계).`,
     top: parts.length > 1 ? `${short}에서 세대가 가장 많은 ${partWord}은 ${parts.slice(0, 3).map((x) => `${x.name}(${n(x.households)}세대)`).join(', ')}입니다.` : `${short} 전체 ${n(r.households)}세대를 생활권별로 나눠 입지를 봅니다.`,
     cat: `반려묘 등록은 ${n(r.cats)}마리로 반려견의 ${catPct}% 수준입니다. 고양이는 동물등록 의무가 아니라 실제 키우는 수보다 적게 잡히므로, 고양이 분양 비중은 상담 문의로 가늠합니다.`,
     gu: r.gus && r.gus.length ? `구별로는 ${r.gus.map((g) => `${g.name.split(' ').slice(-1)[0]} ${n(g.households)}세대(1인 ${g.onePct}%)`).join(', ')}입니다.`
@@ -200,7 +199,7 @@ export function composeFr(p: FrPage) {
   const peers = r ? Object.entries(REGIONS).filter(([k, x]) => x.level === r.level && (r.level === 'sido' || x.sido === r.sido) && k !== p.regionKey)
     .sort((a, b) => b[1].per100 - a[1].per100).slice(0, 4) : [];
   const compare = r && !p.breakdown && ['창업', '애견샵창업', '강아지분양창업', '애견분양샵창업'].includes(p.word) ? [[short, r], ...peers.map(([, x]) => [x.label.replace(/(특별자치시|특별자치도|특별시|광역시)$/, ''), x])] as [string, typeof r][] : [];
-  const partTable = r && (p.breakdown || !compare.length) ? (p.breakdown ? parts.slice(0, 8) : parts.slice(0, 5)) : [];
+  const partTable = r && (p.breakdown || !compare.length) ? (p.breakdown ? parts.slice(0, 10) : parts.slice(0, 5)) : [];
 
   return {
     title, description, summary, place, short, w,
@@ -214,7 +213,7 @@ export function composeFr(p: FrPage) {
     facts, wordBody: (p.breakdown ? wordBodyB : wordBody)[p.word],
     factsHeading: r ? pick([`${short} 상권, 숫자로 보기`, `${short} 반려동물 데이터`, `${short}에서 ${j(w.label, '을')} 한다면`], s, 'fh') : '전국 가맹 안내',
     wordHeading: pick([`${w.label}, ${w.focus}부터`, `${w.label}에서 중요한 것`, `${BRAND}이 ${w.focus}을 돕는 방법`], s, 'wh'),
-    dl: r && !p.breakdown ? rotate([['주민등록 세대', `${n(r.households)}세대 (2026.9)`], ['1인 세대', `${r.onePct}%`], ['반려견 등록', `${n(r.dogs)}마리 (2022 누계)`], ['반려묘 등록', `${n(r.cats)}마리`], ['세대 100곳당 반려견', `${r.per100}마리 · ${r.rankOf}개 ${unit} 중 ${r.rankPer100}위`]] as [string, string][], pairKey, 'dl').slice(0, 4) : r && p.breakdown ? [['기준', `${short} 전체 ${n(r.households)}세대`], ...r.parts.filter((x) => x.name).slice(0, 4).map((x) => [x.name, `${n(x.households)}세대 · 1인 ${x.onePct}%`])] as [string, string][] : r ? [['주민등록 세대', `${n(r.households)}세대 (2026.9)`], ['1인 세대', `${r.onePct}%`], ['반려견 등록', `${n(r.dogs)}마리 (2022 누계)`], ['반려묘 등록', `${n(r.cats)}마리`], ['세대 100곳당 반려견', `${r.per100}마리 · ${r.rankOf}개 ${unit} 중 ${r.rankPer100}위`]] as [string, string][] : [],
+    dl: r && !p.breakdown ? rotate([['주민등록 세대', `${n(r.households)}세대 (2026.9)`], ['1인 세대', `${r.onePct}%`], ['반려견 등록', `${n(r.dogs)}마리 (2022 누계)`], ['반려묘 등록', `${n(r.cats)}마리`], ['세대 100곳당 반려견', `${r.per100}마리`]] as [string, string][], pairKey, 'dl').slice(0, 4) : r && p.breakdown ? [['기준', `${short} 전체 ${n(r.households)}세대`], ...r.parts.filter((x) => x.name).slice(0, 4).map((x) => [x.name, `${n(x.households)}세대 · 1인 ${x.onePct}%`])] as [string, string][] : r ? [['주민등록 세대', `${n(r.households)}세대 (2026.9)`], ['1인 세대', `${r.onePct}%`], ['반려견 등록', `${n(r.dogs)}마리 (2022 누계)`], ['반려묘 등록', `${n(r.cats)}마리`], ['세대 100곳당 반려견', `${r.per100}마리`]] as [string, string][] : [],
     compare,
     extra,
     compareCaption: r ? (r.level === 'sido' ? '시도별 세대 100곳당 반려견 등록' : `${r.sidoName} 도시별 세대 100곳당 반려견 등록`) : '',

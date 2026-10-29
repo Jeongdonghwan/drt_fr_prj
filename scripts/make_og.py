@@ -42,7 +42,7 @@ def main():
     sys.stdout.reconfigure(encoding='utf-8')
     force = '--force' in sys.argv
     os.makedirs(OUT, exist_ok=True)
-    store_rooms = [os.path.join(IMG, f) for f in ('place-hall-1.webp', 'place-hall-2.webp', 'place-hall-3.webp', 'place-front.webp')]  # 부산본점 매장 사진
+    store_rooms = [os.path.join(IMG, 'place-front.webp')]  # 부산본점 외관(간판이 보이는 사진, 사용자 선택 2026-10-29)
     pages = json.load(open(os.path.join(ROOT, 'data', 'pages.json'), encoding='utf-8'))
     items = [('home', '도로시펫 가맹 창업', '상담부터 오픈까지 11단계', [os.path.join(IMG, 'place-front.webp')])]
     for p in pages['franchise']:
