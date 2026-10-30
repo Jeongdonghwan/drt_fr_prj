@@ -43,5 +43,5 @@ python -I ~/.claude/skills/site-launch/scripts/check_all.py C:/side_Prj/dorothyp
 
 ## 확인 필요
 - [x] 창업 사이트 도메인 https://dorothypetfc.co.kr · 분양 사이트 https://dorothypets.co.kr (2026-10-30, 서버 172.237.20.244)
-- [ ] 서치어드바이저·서치콘솔 소유확인 코드
+- [x] 서치어드바이저·서치콘솔 소유확인 (2026-10-30, app/layout.tsx verification)
 - [ ] 가맹 상담 전화가 대표전화와 같은지
