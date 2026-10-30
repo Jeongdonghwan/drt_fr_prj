@@ -23,7 +23,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function PostPage({ params }: { params: { slug: string } }) {
   const p = getPost(params.slug);
   if (!p) notFound();
-  const others = getPosts().filter((x) => x.slug !== p.slug).slice(0, 6);
+  const all = getPosts(), at = all.indexOf(p);
+  const others = [...all.slice(at + 1), ...all.slice(0, at)].slice(0, 6); // 글마다 바로 다음 글들 — 모두 같은 최신 6편을 걸면 글끼리 같은 문장이 늘어난다
   const path = postEncPath(p);
   return (
     <main className="g">
