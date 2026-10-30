@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: '도로시펫 가맹 창업 안내. 본사 공급망·교육·마케팅 지원, 동일 상권 중복 가맹 제한, 상담부터 오픈까지 11단계. 본사 방문 상담 010-2236-8276.',
   robots: { index: true, follow: true },
   alternates: { canonical: '/', types: { 'application/rss+xml': [{ url: '/rss.xml', title: `${BRAND} 지역별 창업 안내` }] } },
+  icons: { icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icon.png', type: 'image/png', sizes: '192x192' }], apple: '/apple-touch-icon.png' },
   verification: { google: 'Rs6P4sz52OhqeHP3Uu3Kh-dSxIPwoc1XY-H7artm9bA', other: { 'naver-site-verification': 'd491c44a63a57ad3f4d17f0000786e7783ad294e' } },
 };
 
