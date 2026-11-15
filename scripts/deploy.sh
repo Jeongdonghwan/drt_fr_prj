@@ -11,6 +11,7 @@ rm -rf ./out
 SITE_URL=$URL npx next build
 rm -rf ./out/blog/_   # 글이 없을 때 생기는 빈 자리(app/blog/[slug] 참고)
 grep -q "$URL" out/sitemap.xml || { echo "sitemap에 주소가 없음"; exit 1; }
+python -I scripts/postbuild.py out   # lastmod·sitemap split·llms.txt
 REMOTE=$(git remote get-url origin)
 cd out
 git init -q -b deploy && git add -A

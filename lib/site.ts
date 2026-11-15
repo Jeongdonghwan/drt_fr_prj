@@ -5,6 +5,7 @@ export const SITE_URL = process.env.SITE_URL || 'https://dorothypetfc.co.kr';
 export const STORE_SITE = process.env.STORE_SITE || 'https://dorothypets.co.kr'; // 분양 매장 SEO 사이트(dorothypet_prj)
 export const BRAND = '도로시펫';
 export const BRAND_EN = 'DOROTHY PET';
+export const UPDATED = '2026-11-16'; // content revision date - bump when page text changes
 
 export const LINKS = {
   home: 'https://dorothypet.co.kr/',

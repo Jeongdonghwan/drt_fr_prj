@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
     { url: `${SITE_URL}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
+    { url: `${SITE_URL}/about/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     ...(getPosts().length ? [{ url: `${SITE_URL}/blog/`, lastModified: now, changeFrequency: 'daily' as const, priority: 0.8 }] : []),
     ...getPosts().map((p) => ({ url: `${SITE_URL}${postEncPath(p)}`, lastModified: new Date(p.date), changeFrequency: 'monthly' as const, priority: 0.7 })),
     ...FR_PAGES.map((p) => ({ url: `${SITE_URL}${frEncPath(p)}`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.7 })),

@@ -1,6 +1,6 @@
 // 도로시펫 가맹 창업 사이트 공통 UI — 각진 버튼, 선 아이콘, 번호 머리, 하단 고정 상담 바.
 import Link from 'next/link';
-import { BRAND, CONTACT, BUSINESS, LINKS, BRANCHES, STORE_SITE, tel } from '../lib/site';
+import { BRAND, CONTACT, BUSINESS, LINKS, BRANCHES, STORE_SITE, UPDATED, tel } from '../lib/site';
 
 export const JsonLd = ({ data }: { data: object | object[] }) => (
   <>{(Array.isArray(data) ? data : [data]).map((d, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(d) }} />)}</>
@@ -52,7 +52,7 @@ export const Footer = () => (
         <strong className="foot-brand">{BRAND}</strong>
         <p>강아지·고양이 분양샵 가맹 창업. 본사 공급망·교육·마케팅 지원, 상담부터 오픈까지 11단계.</p>
         <ul className="foot-branches">{BRANCHES.map((b) => <li key={b.name}><b>{b.name}</b> {b.address} · {b.phone}</li>)}</ul>
-        <p className="foot-links"><a href={LINKS.home} target="_blank" rel="noopener">dorothypet.co.kr</a><a href={LINKS.instagram} target="_blank" rel="noopener">인스타그램</a><a href={LINKS.youtube} target="_blank" rel="noopener">유튜브</a><a href={LINKS.blog} target="_blank" rel="noopener">블로그</a></p>
+        <p className="foot-links"><Link href="/about/">소개</Link><a href={LINKS.home} target="_blank" rel="noopener">dorothypet.co.kr</a><a href={LINKS.instagram} target="_blank" rel="noopener">인스타그램</a><a href={LINKS.youtube} target="_blank" rel="noopener">유튜브</a><a href={LINKS.blog} target="_blank" rel="noopener">블로그</a></p>
       </div>
       <ul className="foot-info">
         <li><span>상호</span>{BUSINESS.name}</li>
@@ -62,7 +62,7 @@ export const Footer = () => (
         <li><span>가맹 상담</span>{CONTACT.phone}</li>
       </ul>
     </div>
-    <div className="wrap foot-bottom">© {new Date().getFullYear()} {BUSINESS.name} · 창업 비용은 점포 조건에 따라 달라 본사 방문 상담으로 안내합니다.</div>
+    <div className="wrap foot-bottom">© {new Date().getFullYear()} {BUSINESS.name} · 최종 수정 <time dateTime={UPDATED}>{UPDATED}</time> · 창업 비용은 점포 조건에 따라 달라 본사 방문 상담으로 안내합니다.</div>
   </footer>
 );
 
