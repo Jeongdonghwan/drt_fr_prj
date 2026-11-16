@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${BRAND} 가맹 창업 | 강아지·고양이 분양샵 창업 상담`, template: '%s' },
   description: '도로시펫 가맹 창업 안내. 본사 공급망·교육·마케팅 지원, 동일 상권 중복 가맹 제한, 상담부터 오픈까지 11단계. 본사 방문 상담 010-2236-8276.',
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   alternates: { canonical: '/', types: { 'application/rss+xml': [{ url: '/rss.xml', title: `${BRAND} 지역별 창업 안내` }] } },
   icons: { icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icon.png', type: 'image/png', sizes: '192x192' }], apple: '/apple-touch-icon.png' },
   verification: { google: 'Rs6P4sz52OhqeHP3Uu3Kh-dSxIPwoc1XY-H7artm9bA', other: { 'naver-site-verification': 'd491c44a63a57ad3f4d17f0000786e7783ad294e' } },
@@ -30,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <StickyBar />
         <Motion />
+        <script dangerouslySetInnerHTML={{ __html: "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'',k=h.indexOf('tel:')===0?'tel':h.indexOf('sms:')===0?'sms':/kakao/.test(h)?'kakao':'';if(k&&navigator.sendBeacon)navigator.sendBeacon('/_t?e='+k+'&p='+encodeURIComponent(location.pathname))},true)" }} />
       </body>
     </html>
   );

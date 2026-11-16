@@ -1,4 +1,4 @@
-import { SITE_URL, BRAND, CONTACT, BUSINESS, LINKS, BRANCHES } from './site';
+import { SITE_URL, BRAND, CONTACT, BUSINESS, LINKS, BRANCHES, UPDATED } from './site';
 
 export const businessJsonLd = () => ({
   '@context': 'https://schema.org',
@@ -23,6 +23,7 @@ export const breadcrumbJsonLd = (items: { name: string; path: string }[]) => ({
 export const faqJsonLd = (faqs: { q: string; a: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  dateModified: UPDATED,
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 });
 
