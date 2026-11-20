@@ -7,7 +7,7 @@ import { JsonLd } from '../components/Common';
 import { Badge, FrHero, PlaceGallery, PhotoStrip, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, Branches, CtaBox, OWNER } from '../components/Fr';
 
 const TITLE = `${BRAND} 가맹 창업 | 강아지·고양이 분양샵 창업 상담`;
-const DESC = `${BRAND} 가맹 창업 안내. 실전 운영 노하우, 본사 교육·마케팅 지원, 동일 상권 중복 가맹 제한, 상담부터 오픈까지 11단계. 본사 방문 상담 ${CONTACT.phone}.`;
+const DESC = `${BRAND} 가맹 창업 안내. 본사 교육·마케팅 지원, 동일 상권 중복 가맹 제한, 상담부터 오픈까지 11단계, ${CONTACT.phone}.`;
 const base = ogMeta(TITLE, DESC, '/', 'home');
 export const metadata: Metadata = { ...base, alternates: { ...base.alternates, types: { 'application/rss+xml': [{ url: '/rss.xml', title: `${BRAND} 지역별 창업 안내` }] } } };
 
