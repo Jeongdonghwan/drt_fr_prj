@@ -6,14 +6,19 @@ import { composeFr } from '../../lib/compose-fr';
 import { BRAND, FR_MOTTO } from '../../lib/site';
 import { breadcrumbJsonLd, faqJsonLd, pageListJsonLd, ogMeta } from '../../lib/jsonld';
 import { IconArrow, JsonLd } from '../../components/Common';
+import { X_PAGES, getX, composeX, xEncPath } from '../../lib/x';
+import { XW } from '../../lib/x-words';
+import { XView } from '../../components/X';
 import { FrHero, PlaceGallery, Reviews, FeaturePanel, IconCards, GradCards, StepTrack, CtaBox, HQ } from '../../components/Fr';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return FR_PAGES.map((p) => ({ slug: p.slug }));
+  return [...FR_PAGES, ...X_PAGES].map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const x = getX(params.slug);
+  if (x) { const cx = composeX(x); return ogMeta(cx.title, cx.description, xEncPath(x), cx.og); }
   const p = getFr(params.slug);
   if (!p) return {};
   const c = composeFr(p);
@@ -21,8 +26,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default function FrPage({ params }: { params: { slug: string } }) {
+  const x = getX(params.slug);
+  if (x) return <XView p={x} />;
   const p = getFr(params.slug);
   if (!p) notFound();
+  // h1 수식어(2026-11-24) — 키워드만 있는 h1 대신 업종어별 수식어를 붙인다
+  const hs = (XW[p.word] || XW['반려동물분양창업']).sub;
+  const h1sub = hs[hash(`${p.slug}::h1`) % hs.length];
   const c = composeFr(p);
   const rel = relatedFr(p);
   const path = frEncPath(p);
@@ -33,13 +43,13 @@ export default function FrPage({ params }: { params: { slug: string } }) {
       <JsonLd data={[
         breadcrumbJsonLd([{ name: '홈', path: '/' }, { name: '지역별 창업', path: '/#regions' }, { name: p.kw, path }]),
         faqJsonLd(c.faq),
-        pageListJsonLd(`${p.kw} 관련 안내`, [...rel.sameRegion, ...rel.sameWord, ...rel.wider].map((x) => ({ name: x.kw, path: frEncPath(x) }))),
+        pageListJsonLd(`${p.kw} 관련 안내`, [...rel.sameRegion, ...rel.sameWord, ...rel.wider].map((x) => ({ name: x.kw, path: frEncPath(x), image: `/og/${x.slug}.jpg` }))),
       ]} />
 
       <FrHero
         crumbs={<nav className="crumbs g-crumbs" aria-label="경로"><Link href="/">홈</Link><span>/</span><Link href="/#regions">지역별 창업</Link><span>/</span>{p.kw}</nav>}
         badge={c.eyebrow}
-        title={p.region && p.kw.startsWith(c.short) ? <><em>{c.short}</em>{p.kw.slice(c.short.length)}</> : p.kw}
+        title={<><span>{p.region && p.kw.startsWith(c.short) ? <><em>{c.short}</em>{p.kw.slice(c.short.length)}</> : p.kw}</span>{' '}<span className="hero-sub">{h1sub}</span></>}
         lead={c.lead}
         cards
       />
@@ -54,7 +64,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
       <section className="g-sec">
         <div className="wrap">
           <article className="g-article">
-            <h2>{c.article.heading}</h2>
+            <h2>{p.kw}: {c.article.heading.replace(`${c.short} `, '')}</h2>
             {c.article.sections.map((x, i) => (
               <section key={x.h} data-reveal>
                 <h3><span>{String(i + 1).padStart(2, '0')}</span>{x.h}</h3>
@@ -67,7 +77,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
 
       <section className="g-sec soft">
         <div className="wrap">
-          <div className="g-head"><h2>{c.meritHeading}</h2><p>공식 가맹 안내 내용을 {c.short} 기준으로 정리했습니다.</p></div>
+          <div className="g-head"><h2>{p.kw} — {c.meritHeading.replace(`${c.short} ${c.w.label}, `, '').replace(`${c.short} `, '')}</h2><p>공식 가맹 안내 내용을 {c.short} 기준으로 정리했습니다.</p></div>
           <GradCards items={c.merits} label={`${c.short} 가맹점 지원`} />
         </div>
       </section>
@@ -106,7 +116,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
 
       <section className="g-sec soft">
         <div className="wrap">
-          <div className="g-head"><h2>상담부터 오픈까지 11단계</h2></div>
+          <div className="g-head"><h2>{p.kw}: 상담부터 오픈까지 11단계</h2></div>
           <StepTrack desc={c.steps.map((x) => x.d)} />
         </div>
       </section>
@@ -117,7 +127,7 @@ export default function FrPage({ params }: { params: { slug: string } }) {
 
       <section className="g-sec" id="faq">
         <div className="wrap">
-          <div className="g-head"><h2>자주 묻는 질문</h2></div>
+          <div className="g-head"><h2>{p.kw} 자주 묻는 질문</h2></div>
           <div className="faq g-faq">{c.faq.map((f) => <details key={f.q} data-reveal><summary>{f.q}<i /></summary><p>{f.a}</p></details>)}</div>
         </div>
       </section>

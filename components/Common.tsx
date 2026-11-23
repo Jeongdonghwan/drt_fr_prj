@@ -52,7 +52,7 @@ export const Footer = () => (
         <strong className="foot-brand">{BRAND}</strong>
         <p>강아지·고양이 분양샵 가맹 창업. 본사 공급망·교육·마케팅 지원, 상담부터 오픈까지 11단계.</p>
         <ul className="foot-branches">{BRANCHES.map((b) => <li key={b.name}><b>{b.name}</b> {b.address} · {b.phone}</li>)}</ul>
-        <p className="foot-links"><Link href="/about/">소개</Link><a href={LINKS.home} target="_blank" rel="noopener">dorothypet.co.kr</a><a href={LINKS.instagram} target="_blank" rel="noopener">인스타그램</a><a href={LINKS.youtube} target="_blank" rel="noopener">유튜브</a><a href={LINKS.blog} target="_blank" rel="noopener">블로그</a></p>
+        <p className="foot-links"><Link href="/about/">소개</Link><Link href="/topics/">주제별 창업 안내</Link><Link href="/areas/">구·시별 창업 안내</Link><a href={LINKS.home} target="_blank" rel="noopener">dorothypet.co.kr</a><a href={LINKS.instagram} target="_blank" rel="noopener">인스타그램</a><a href={LINKS.youtube} target="_blank" rel="noopener">유튜브</a><a href={LINKS.blog} target="_blank" rel="noopener">블로그</a></p>
       </div>
       <ul className="foot-info">
         <li><span>상호</span>{BUSINESS.name}</li>

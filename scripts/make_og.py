@@ -52,6 +52,11 @@ def main():
         items.append((f"blog-{meta['slug']}", meta.get('keyword') or meta['title'], '도로시펫 창업 가이드', store_rooms))
     for p in pages['franchise']:
         items.append((p['slug'], p['kw'], '도로시펫 가맹 창업 상담', store_rooms))
+    # 확장 페이지(2026-11-24): 주제·업종어마다 한 장을 함께 쓴다 (4,000장을 따로 만들지 않는다)
+    for f in glob.glob(os.path.join(ROOT, 'data', 'topics', '*.json')):
+        t = json.load(open(f, encoding='utf-8')); items.append((f"x-t-{t['id']}", f"창업 {t['name']}", '도로시펫 가맹 창업 안내', store_rooms))
+    for w in sorted({x['word'] for x in json.load(open(os.path.join(ROOT, 'data', 'fr-extra.json'), encoding='utf-8'))}):
+        items.append((f'x-w-{w}', w, '도로시펫 가맹 창업 상담', store_rooms))
     n = 0
     for slug, title, sub, photos in items:
         path = os.path.join(OUT, f'{slug}.jpg')

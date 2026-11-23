@@ -655,3 +655,27 @@ body { color: var(--s-900); }
 .g-post-list li { position: relative; padding: 12px 16px 12px 40px; background: var(--s-50); border-radius: var(--r-sm); color: var(--s-700); }
 .g-post-list li::before { content: ""; position: absolute; left: 18px; top: 21px; width: 8px; height: 8px; border-radius: 2px; background: var(--c-500); }
 @media (max-width: 760px) { .g-posts { grid-template-columns: 1fr; } }
+
+/* ---- 확장 페이지(레이 모범 구조) + h1 수식어 — 2026-11-24 ---- */
+.g-title .hero-sub { display: block; margin-top: 12px; font-size: .44em; font-weight: 600; letter-spacing: -.02em; line-height: 1.4; color: var(--s-500); }
+.x-hero .g-lead { max-width: 640px; }
+.x-body { padding-top: 56px; }
+.x-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; align-items: start; }
+.x-sum { background: var(--c-50); border: 1px solid var(--c-100); border-radius: var(--r-md); padding: 30px 30px 26px; margin-bottom: 44px; }
+.x-sum h2 { margin: 0 0 12px; font-size: 1.18rem; font-weight: 800; letter-spacing: -.03em; color: var(--c-700); }
+.x-sum p { margin: 0 0 20px; color: var(--s-700); line-height: 1.85; }
+.x-sum dl, .x-side dl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin: 0; }
+.x-sum dl div, .x-side dl div { border-left: 2px solid var(--c-400); padding-left: 12px; }
+.x-sum dt, .x-side dt { font-size: .78rem; font-weight: 700; color: var(--c-600); }
+.x-sum dd, .x-side dd { margin: 2px 0 0; font-size: .95rem; color: var(--s-900); }
+.x-article section { padding: 30px 0 14px; border-top: 1px solid var(--s-200); }
+.x-article h2 { display: flex; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: clamp(1.18rem, 2.2vw, 1.42rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.4; }
+.x-article h2 span { flex: none; font-size: .8rem; color: var(--c-600); font-variant-numeric: tabular-nums; }
+.x-article p { margin: 0 0 16px; color: var(--s-700); font-size: 1.04rem; line-height: 1.9; }
+.x-faq { margin-top: 40px; }
+.x-faq h2 { margin: 0 0 18px; font-size: 1.42rem; font-weight: 800; letter-spacing: -.03em; }
+.x-side { position: sticky; top: 96px; background: #fff; border: 1px solid var(--s-200); border-radius: var(--r-md); padding: 26px 24px; display: grid; gap: 14px; }
+.x-side h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
+.x-side dl { grid-template-columns: 1fr; }
+.x-side .g-btn { justify-content: center; }
+@media (max-width: 900px) { .x-grid { grid-template-columns: 1fr; gap: 36px; } .x-side { position: static; } .x-sum { padding: 24px 20px; } .x-sum dl { grid-template-columns: 1fr; } }

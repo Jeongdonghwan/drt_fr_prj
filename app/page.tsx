@@ -34,7 +34,7 @@ export default function Franchise() {
   }
   return (
     <main className="g">
-      <JsonLd data={[faqJsonLd(FAQ), pageListJsonLd(`${BRAND} 지역별 창업 안내`, FR_PAGES.map((x) => ({ name: x.kw, path: frEncPath(x) })))]} />
+      <JsonLd data={[faqJsonLd(FAQ), pageListJsonLd(`${BRAND} 지역별 창업 안내`, FR_PAGES.map((x) => ({ name: x.kw, path: frEncPath(x), image: `/og/${x.slug}.jpg` })))]} />
 
       <FrHero
         badge="DOROTHY PET FRANCHISE"
@@ -106,7 +106,7 @@ export default function Franchise() {
 
       <section className="g-sec soft" id="regions">
         <div className="wrap">
-          <div className="g-head"><h2>지역별 창업 안내</h2><p>{groups.size}개 권역 {FR_PAGES.length.toLocaleString()}개 페이지. 지역별로 가맹 지원 내용과 상담 방법을 정리했습니다.</p></div>
+          <div className="g-head"><h2>지역별 창업 안내</h2><p>{groups.size}개 권역 {FR_PAGES.length.toLocaleString()}개 페이지. 지역별로 가맹 지원 내용과 상담 방법을 정리했습니다. <Link href="/topics/">주제별 창업 안내</Link> · <Link href="/areas/">구·시별 창업 안내</Link>도 있습니다.</p></div>
           <div className="dir g-dir">
             {Array.from(groups.entries()).map(([k, list], i) => (
               <details key={k} open={i < 2}>

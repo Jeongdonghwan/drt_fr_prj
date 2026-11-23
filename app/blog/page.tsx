@@ -15,7 +15,7 @@ export default function Blog() {
   const posts = getPosts();
   return (
     <main className="g">
-      <JsonLd data={pageListJsonLd(`${BRAND} 창업 가이드`, posts.map((p) => ({ name: p.title, path: postEncPath(p) })))} />
+      <JsonLd data={pageListJsonLd(`${BRAND} 창업 가이드`, posts.map((p) => ({ name: p.title, path: postEncPath(p), image: `/og/blog-${p.slug}.jpg` })))} />
       <section className="g-hero small">
         <div className="wrap g-hero-in">
           <p className="g-badge">FRANCHISE GUIDE</p>

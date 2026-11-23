@@ -195,7 +195,15 @@ export function composeFr(p: FrPage) {
     `${p.kw} — ${short} ${L} 가맹 안내 | ${BRAND}`,
     `${p.kw} | ${BRAND} 가맹 11단계`,
   ], s, 'title').slice(0, 60);
-  const description = `${p.kw}. ${BRAND} 가맹 ${rest.slice(0, 3).map((x) => x.t).join('·')}, 상담부터 오픈까지 11단계. 본사 방문 상담 ${CONTACT.phone}.`.slice(0, 158);
+  // description 45~80자(2026-11-24): 키워드 + 이 페이지 장점 주제 2~3개 + 상담
+  const mt = rest.slice(0, 3).map((x) => x.t);
+  const description = [
+    `${p.kw} — ${mt.join('·')}. ${BRAND} 가맹 11단계, 방문 상담 ${CONTACT.phone}`,
+    `${p.kw} — ${mt.join('·')}. ${BRAND} 가맹 상담 ${CONTACT.phone}`,
+    `${p.kw} — ${mt.slice(0, 2).join('·')}. ${BRAND} 가맹 11단계, 방문 상담 ${CONTACT.phone}`,
+    `${p.kw} — ${mt.slice(0, 2).join('·')}. ${BRAND} 가맹 상담 ${CONTACT.phone}`,
+    `${p.kw} — ${mt[0]}. ${BRAND} 가맹 상담 ${CONTACT.phone}`,
+  ].find((d) => d.length <= 80) || `${p.kw} | ${BRAND} 가맹 상담 ${CONTACT.phone}`;
 
   return {
     title, description, summary, short, w, merits,

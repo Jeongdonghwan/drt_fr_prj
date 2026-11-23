@@ -33,7 +33,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           mainEntityOfPage: `${SITE_URL}${path}`, image: `${SITE_URL}/og/blog-${encodeURIComponent(p.slug)}.jpg`,
           author: { '@type': 'Organization', name: BUSINESS.name }, publisher: { '@type': 'Organization', name: BUSINESS.name } },
         breadcrumbJsonLd([{ name: '홈', path: '/' }, { name: '창업 가이드', path: '/blog/' }, { name: p.title, path }]),
-        pageListJsonLd(`${BRAND} 창업 가이드 다른 글`, others.map((x) => ({ name: x.title, path: postEncPath(x) }))),
+        pageListJsonLd(`${BRAND} 창업 가이드 다른 글`, others.map((x) => ({ name: x.title, path: postEncPath(x), image: `/og/blog-${x.slug}.jpg` }))),
       ]} />
       <section className="g-hero small">
         <div className="wrap g-hero-in">

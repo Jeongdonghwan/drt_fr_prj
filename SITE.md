@@ -45,3 +45,12 @@ python -I ~/.claude/skills/site-launch/scripts/check_all.py C:/side_Prj/dorothyp
 - [x] 창업 사이트 도메인 https://dorothypetfc.co.kr · 분양 사이트 https://dorothypets.co.kr (2026-10-30, 서버 172.237.20.244)
 - [x] 서치어드바이저·서치콘솔 소유확인 (2026-10-30, app/layout.tsx verification)
 - [ ] 가맹 상담 전화가 대표전화와 같은지
+
+## 확장 4,022쪽 + h1·h2·description 규칙 (2026-11-24)
+- 사용자 지시: 키워드를 늘려 5천 쪽 정도로. 합계 5,022쪽(기존 1,000 + 확장 4,022). 키워드 `data/fr-extra.json`(dorothypet_prj `scripts/build_fr_expand.py`, 엑셀 `keywords/도로시펫_창업확장.xlsx`).
+- 유형: wt 업종×주제 450 / rwt 시도×업종×주제 1,360 / rw 지역×새 업종어 616 / gw 구×업종어 1,596.
+- 구조는 법률사무소 레이 모범 페이지(스킬 programmatic-seo composer-patterns §5-2): 분류 줄 → h1(키워드+수식어) → 핵심 요약 상자 → 번호 절 6개(한 문단) → FAQ → 관련 링크. 조합기 `lib/x.ts`·`lib/x-words.ts`, 화면 `components/X.tsx`, 허브 `/topics/`·`/areas/`.
+- 주제 글 30개 `data/topics/*.json` (지침 `_BRIEF.md`, 검사 `python -I scripts/check_topics.py`). 금액·수익·지역 통계 없음. 지역 페이지(rw·gw)는 주제 30개에서 절을 하나씩 뽑아 쓴다.
+- 오픈: `data/drip-x.json` launch 2026-11-24, 2일마다 한 묶음(11-24·26·28·30, 1,346/884/898/894). 빌드 날짜로 자동 계산(`OPEN_X` 로 덮어씀) — **PC daily.sh 의 dorothypet_fr 줄은 12-01 까지 남겨 둘 것.**
+- 점검 `OPEN_X=4 npx tsx scripts/x_check.ts`: h1 중복 0, 설명 45~80자·중복 0, 같은 문장 무작위 4%·같은 주제 30%·같은 지역 6%, 키워드 든 h2 4개.
+- 기존 1,000쪽: h1 수식어, h2 네 곳에 키워드, description 45~80자(본문 문장은 그대로). og 는 확장 페이지가 주제·업종어 공용(`x-t-*`, `x-w-*`).
