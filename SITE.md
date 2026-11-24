@@ -56,4 +56,4 @@ python -I ~/.claude/skills/site-launch/scripts/check_all.py C:/side_Prj/dorothyp
 - 기존 1,000쪽: h1 수식어, h2 네 곳에 키워드, description 45~80자(본문 문장은 그대로). og 는 확장 페이지가 주제·업종어 공용(`x-t-*`, `x-w-*`).
 
 ### title 규칙 (2026-11-24)
-title = `{키워드} {h1 수식어} | 도로시펫` — 앞부분은 h1 글자와 같다(`lib/site.ts` `kwTitle`, 키워드+수식어 40자 넘으면 수식어 생략). 기존 1,000쪽은 `composeFr` 안에서, 확장 4,022쪽은 `composeX` 에서. 측정: title 중복 0·60자 초과 0, 수식어 빠진 것 확장 14쪽. og:title·RSS 도 같은 값.
+title = `{키워드} {h1 수식어} | 도로시펫` — 앞부분은 h1 글자와 같다(`lib/site.ts` `kwTitle`, 키워드+수식어 40자 넘으면 수식어 생략). 기존 1,000쪽은 `composeFr` 안에서, 확장 4,022쪽은 `composeX` 에서. 측정: title 중복 0·40자 초과 0(전체 40자 이하 — 넘으면 상호를 뺌: 확장 704쪽), 수식어 빠진 것 확장 14쪽. og:title·RSS 도 같은 값.
