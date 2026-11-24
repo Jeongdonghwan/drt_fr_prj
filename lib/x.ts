@@ -7,7 +7,7 @@ import path from 'path';
 import extra from '../data/fr-extra.json';
 import drip from '../data/drip-x.json';
 import { FR_PAGES, FrPage, REGIONS, hash } from './data';
-import { BRAND, CONTACT } from './site';
+import { BRAND, CONTACT, kwTitle } from './site';
 import { josa } from './ko';
 import { XW, FRAMES } from './x-words';
 
@@ -85,7 +85,6 @@ export function composeX(p: XPage) {
     ];
     cat = `${reg ? `${reg.sido} · ` : ''}${L}`;
   }
-  const t2 = pick([`${p.kw} | ${BRAND} 가맹 창업`, `${p.kw} — ${h1sub} | ${BRAND}`], s, 'title');
   // description 45~80자: 키워드 + 수식어/관련 주제 2~3개 + 상담 (긴 것부터 맞는 것을 고른다)
   const tail = [`${BRAND} 가맹 방문 상담 ${CONTACT.phone}`, `${BRAND} 가맹 상담 ${CONTACT.phone}`, `${BRAND} 가맹 상담`];
   const rel = T ? rotate(TOPICS.filter((t) => t.id !== T.id), s, 'dr').slice(0, 2).map((t) => t.name) : relNames;
@@ -93,7 +92,7 @@ export function composeX(p: XPage) {
     ? [...tail.map((e) => `${p.kw} — ${h1sub}. ${rel.join('·')}까지 ${e}`), ...tail.map((e) => `${p.kw} — ${h1sub}. ${e}`), ...tail.map((e) => `${p.kw} — ${rel.join('·')}까지 ${e}`)]
     : [...tail.map((e) => `${p.kw} — ${rel.join('·')} 안내. ${h1sub}, ${e}`), ...tail.map((e) => `${p.kw} — ${rel.join('·')} 안내. ${e}`), ...tail.map((e) => `${p.kw} — ${rel.slice(0, 2).join('·')} 안내. ${e}`)];
   const description = cands.find((d) => d.length <= 80) || `${p.kw} | ${BRAND} 가맹 상담`;
-  return { L, short, where, cat, h1sub, lead, summary, facts, sections, faq, title: t2.length > 60 ? `${p.kw} | ${BRAND} 가맹 창업` : t2, description, og: T ? `x-t-${T.id}` : `x-w-${p.word}`, topicName: T?.name };
+  return { L, short, where, cat, h1sub, lead, summary, facts, sections, faq, title: kwTitle(p.kw, h1sub), description, og: T ? `x-t-${T.id}` : `x-w-${p.word}`, topicName: T?.name };
 }
 
 // 관련 링크 3묶음 (열린 페이지만)

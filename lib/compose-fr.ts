@@ -4,7 +4,8 @@
 //           창업 비용 숫자·수익률·'타 브랜드 1/3' 같은 비교 수치(사이트도 금액 미표기).
 // 페이지끼리 같은 문장을 줄이는 장치: 가맹 장점 주제 12개마다 지역명·유형이 들어간 표현 2~3벌 → 페이지마다 해시로 주제·표현 선택.
 import { FrPage, FrWord, hash } from './data';
-import { BRAND, CONTACT, BRANCHES, FR_CORE, FR_WHY, FR_STEPS, FR_MOTTO } from './site';
+import { BRAND, CONTACT, BRANCHES, FR_CORE, FR_WHY, FR_STEPS, FR_MOTTO, kwTitle } from './site';
+import { XW } from './x-words';
 import { j } from './ko';
 import { articleFr } from './article-fr';
 
@@ -190,11 +191,9 @@ export function composeFr(p: FrPage) {
   const summary = rest.slice(3, 6).map((x) => say(x, 'sm'));
   if (branch) summary[2] = `${short}에는 이미 ${BRAND} ${branch}이 있어, 동일 상권 중복 가맹 제한 원칙에 따라 ${branch} 상권과 겹치지 않는 입지부터 검토합니다.`;
 
-  const title = pick([
-    `${p.kw} | ${BRAND} 가맹 상담`,
-    `${p.kw} — ${short} ${L} 가맹 안내 | ${BRAND}`,
-    `${p.kw} | ${BRAND} 가맹 11단계`,
-  ], s, 'title').slice(0, 60);
+  // h1 수식어(2026-11-24) — 업종어별 수식어. title 앞부분도 같은 글자(키워드 + 수식어 | 상호).
+  const hs = (XW[p.word] || XW['반려동물분양창업']).sub;
+  const h1sub = hs[hash(`${p.slug}::h1`) % hs.length];
   // description 45~80자(2026-11-24): 키워드 + 이 페이지 장점 주제 2~3개 + 상담
   const mt = rest.slice(0, 3).map((x) => x.t);
   const description = [
@@ -206,7 +205,7 @@ export function composeFr(p: FrPage) {
   ].find((d) => d.length <= 80) || `${p.kw} | ${BRAND} 가맹 상담 ${CONTACT.phone}`;
 
   return {
-    title, description, summary, short, w, merits,
+    title: kwTitle(p.kw, h1sub), h1sub, description, summary, short, w, merits,
     eyebrow: `${BRAND} 가맹 · ${r ? short : '전국'}`,
     lead: pick([
       `${short}에서 ${j(L, '을')} 알아보는 분께 ${BRAND} 가맹의 장점과 본사 지원 내용을 정리했습니다.`,

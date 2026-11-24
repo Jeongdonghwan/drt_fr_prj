@@ -30,10 +30,8 @@ export default function FrPage({ params }: { params: { slug: string } }) {
   if (x) return <XView p={x} />;
   const p = getFr(params.slug);
   if (!p) notFound();
-  // h1 수식어(2026-11-24) — 키워드만 있는 h1 대신 업종어별 수식어를 붙인다
-  const hs = (XW[p.word] || XW['반려동물분양창업']).sub;
-  const h1sub = hs[hash(`${p.slug}::h1`) % hs.length];
   const c = composeFr(p);
+  const h1sub = c.h1sub;
   const rel = relatedFr(p);
   const path = frEncPath(p);
 

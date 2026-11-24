@@ -13,6 +13,7 @@ const cache = new Map<string, ReturnType<typeof sents>>();
 const get = (p: XPage) => { if (!cache.has(p.slug)) cache.set(p.slug, sents(p)); return cache.get(p.slug)!; };
 const share = (a: XPage, b: XPage) => { const A = get(a).set, B = get(b).set; let n = 0; A.forEach((x) => { if (B.has(x)) n++; }); return n / Math.min(A.size, B.size); };
 
+const titles = new Map<string, number>(); let noSub = 0;
 const h1 = new Map<string, number>(); let raw = 0; let lens: number[] = []; let kwH2 = 0; let longTitle = 0; let badDesc = 0;
 for (const p of pages) {
   const g = get(p); const c = g.c;
@@ -20,7 +21,8 @@ for (const p of pages) {
   const all = JSON.stringify(c);
   if (/\{(L|short|where|BRAND|PHONE)/.test(all)) { raw++; if (raw < 4) console.log('자리표시자 남음:', p.kw); }
   lens.push(g.len); kwH2 += c.sections.filter((x) => x.h.includes(p.kw)).length;
-  if (c.title.length > 60) longTitle++;
+  if (c.title.length > 60 || !c.title.startsWith(p.kw)) longTitle++;
+  titles.set(c.title, (titles.get(c.title) || 0) + 1); if (c.title === `${p.kw} | 도로시펫`) noSub++;
   if (c.description.length < 45 || c.description.length > 80) badDesc++;
 }
 const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
@@ -33,6 +35,7 @@ const within = (gs: XPage[][], n: number) => Array.from({ length: n }, (_, i) =>
 
 const descs = new Set(pages.map((p) => get(p).c.description)); console.log(`설명 중복 ${pages.length - descs.size}`);
 console.log(`확장 전체 ${X_ALL.length} · 열린 것 ${pages.length} (묶음별 ${[1, 2, 3, 4].map((w) => X_ALL.filter((x) => x.wave === w).length).join('/')})`);
+console.log(`title 중복 ${[...titles.values()].filter((v) => v > 1).length} · 수식어 빠진 title ${noSub}`);
 console.log(`h1 중복 ${[...h1.values()].filter((v) => v > 1).length} · 자리표시자 남은 페이지 ${raw} · 제목 60자 초과 ${longTitle} · 설명 길이 밖 ${badDesc}`);
 console.log(`본문 글자(요약+절+FAQ답) 평균 ${Math.round(avg(lens))} · 최소 ${Math.min(...lens)} · 최대 ${Math.max(...lens)} · 키워드 든 h2 평균 ${(kwH2 / pages.length).toFixed(1)}개`);
 console.log('같은 문장 — 무작위:', sample(randomPairs));

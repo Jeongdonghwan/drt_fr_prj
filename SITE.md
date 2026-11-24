@@ -54,3 +54,6 @@ python -I ~/.claude/skills/site-launch/scripts/check_all.py C:/side_Prj/dorothyp
 - 오픈: `data/drip-x.json` launch 2026-11-24, 2일마다 한 묶음(11-24·26·28·30, 1,346/884/898/894). 빌드 날짜로 자동 계산(`OPEN_X` 로 덮어씀) — **PC daily.sh 의 dorothypet_fr 줄은 12-01 까지 남겨 둘 것.**
 - 점검 `OPEN_X=4 npx tsx scripts/x_check.ts`: h1 중복 0, 설명 45~80자·중복 0, 같은 문장 무작위 4%·같은 주제 30%·같은 지역 6%, 키워드 든 h2 4개.
 - 기존 1,000쪽: h1 수식어, h2 네 곳에 키워드, description 45~80자(본문 문장은 그대로). og 는 확장 페이지가 주제·업종어 공용(`x-t-*`, `x-w-*`).
+
+### title 규칙 (2026-11-24)
+title = `{키워드} {h1 수식어} | 도로시펫` — 앞부분은 h1 글자와 같다(`lib/site.ts` `kwTitle`, 키워드+수식어 40자 넘으면 수식어 생략). 기존 1,000쪽은 `composeFr` 안에서, 확장 4,022쪽은 `composeX` 에서. 측정: title 중복 0·60자 초과 0, 수식어 빠진 것 확장 14쪽. og:title·RSS 도 같은 값.

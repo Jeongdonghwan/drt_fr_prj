@@ -4,6 +4,8 @@
 export const SITE_URL = process.env.SITE_URL || 'https://dorothypetfc.co.kr';
 export const STORE_SITE = process.env.STORE_SITE || 'https://dorothypets.co.kr'; // 분양 매장 SEO 사이트(dorothypet_prj)
 export const BRAND = '도로시펫';
+// title = h1 글자(키워드 + 수식어) | 상호 (2026-11-24). 키워드+수식어 40자 넘으면 수식어를 뺀다.
+export const kwTitle = (kw: string, sub: string) => `${`${kw} ${sub}`.length <= 40 ? `${kw} ${sub}` : kw} | ${BRAND}`;
 export const BRAND_EN = 'DOROTHY PET';
 export const UPDATED = '2026-11-16'; // content revision date - bump when page text changes
 
